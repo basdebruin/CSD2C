@@ -17,23 +17,30 @@ int main(int argc, char ** argv) {
 	double samplerate = jack.getSamplerate();
 
 
-	LPF lpf(2000, samplerate);
+	float c = 22000;
+
+	// cutoff, res, sr
+	LPF lpf(c, 0.1, samplerate);
 
 
 	//assign a function to the JackModule::onProces
 	jack.onProcess = [&](jack_default_audio_sample_t * inBuf,
 		jack_default_audio_sample_t * outBuf, jack_nframes_t nframes) {
 
-		for (unsigned int i = 0; i < nframes; i++) {
+			c-=10;
+			lpf.setCutoff(c);
 
-			// noise
-			float r = (std::rand() % 1000) / 500 - 1;
-			// lpf naar outbuf
-			outBuf[i] = lpf.update(r);
+			for (unsigned int i = 0; i < nframes; i++) {
 
-		}
+				// noise
+				float r = (float) (std::rand() % 1000) / 500.0 - 1.0;
+				// lpf naar outbuf
+				float sample = lpf.rcUpdate(r);
+				outBuf[i] = sample;
 
-		return 0;
+			}
+
+			return 0;
 	};
 
 	jack.autoConnect();
@@ -47,8 +54,6 @@ int main(int argc, char ** argv) {
 				running = false;
 				jack.end();
 				break;
-			case 's':
-				lpf.setCutoff(200);
 		}
 	}
 
