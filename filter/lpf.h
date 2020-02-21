@@ -12,6 +12,7 @@ public:
 
     inline void setCutoff(float cutoff) {
         this->cutoff = cutoff;
+        std::cout << "LPF :: Cutoff set to: " << cutoff << std::endl;
     };
     inline void setRes(float res) {this->resonance = res;};
 
