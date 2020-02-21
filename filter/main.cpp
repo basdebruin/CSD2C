@@ -20,7 +20,7 @@ int main(int argc, char ** argv) {
 	float c = 22000;
 
 	// cutoff, res, sr
-	LPF lpf(c, 0.1, samplerate);
+	LPF lpf(c, 0.8, samplerate);
 
 
 	//assign a function to the JackModule::onProces
