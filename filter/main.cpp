@@ -32,7 +32,7 @@ int main(int argc, char ** argv) {
 				// noise
 				// float r = (float) (std::rand() % 1000) / 500.0 - 1.0;
 				// lpf naar outbuf
-				float sample = lpf.rcUpdate(inBuf[i]);
+				float sample = lpf.update(inBuf[i]);
 				outBuf[i] = sample;
 
 			}
