@@ -10,7 +10,7 @@ let x, y;
 let touching = false;
 
 function setup() {
-    createCanvas(640, 480);
+    createCanvas(windowWidth < 640 ? windowWidth -18 : 622, windowWidth < 640 ? windowWidth : 480);
     //maak een connect-object aan dat zorgt voor de communicatie met oscServer.js
     connect = new Connect();
 
@@ -30,41 +30,58 @@ function setup() {
 function draw() {
     background(40, 40, 50, 30);
     //
-    touching = mouseIsPressed;
+    if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+        touching = mouseIsPressed;
+    } else {
+        touching = false;
+    }
     //ellipse(x * width, y * height, 10);
     drawGrid();
 }
 
-// on mouse move
+// on mouse move (mouseDragged and mousePressed should all trigger mouseMoved)
 mouseDragged = () => mouseMoved();
+mousePressed = () => mouseMoved();
 function mouseMoved() {
+    if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
 
-    x = map(mouseX, 0, width, 0, 1);
-    y = map(mouseY, 0, height, 0, 1);
+        x = map(mouseX, 0, width, 0, 1);
+        y = map(mouseY, 0, height, 0, 1);
 
-    //stuur een bericht naar het adres /x met als waarde de x-positie van de muis
-    client.sendMessage("/x", x);
+        //stuur een bericht naar het adres /x met als waarde de x-positie van de muis
+        client.sendMessage("/x", x);
 
-    //stuur een bericht naar het adres /y met als waarde de y-positie van de muis.
-    client.sendMessage("/y", y);
+        //stuur een bericht naar het adres /y met als waarde de y-positie van de muis.
+        client.sendMessage("/y", y);
+
+    }
 }
 
-// send "/filter" message
-function setFilter(filt) {
+
+// set filter switch function
+function setFilter(event, filt) {
+    // send /filter message
     client.sendMessage("/filter", filt);
     console.log("Set filter to: " + filt);
+    
+    // set tab activeness
+    let buttons = document.getElementById('switch').childNodes;
+    for (let b of buttons) {
+        if (b.classList) b.classList.remove("active");
+    }
+    event.currentTarget.className += " active";
 }
 
-
+const gridSize = 7;
 
 function drawGrid() {
     // i and j as x and y grid
-    for (let i = 0; i < 8; i++) {
-        for (let j = 0; j < 8; j++) {
+    for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
 
             const pos = {
-                x: i * (width/8),
-                y: j * (height/8)
+                x: i * (width/gridSize),
+                y: j * (height/gridSize)
             }
 
             push();
@@ -72,13 +89,13 @@ function drawGrid() {
                 strokeWeight(2);
                 noFill();
 
-                rect(pos.x, pos.y, width/8, height/8);
+                rect(pos.x, pos.y, width/gridSize, height/gridSize);
             pop();
 
             if (touching) {
                 const gridpos = {
-                    x: int(x * 8),
-                    y: int(y * 8)
+                    x: int(x * gridSize),
+                    y: int(y * gridSize)
                 }
                 // draw red squares around mouse/touch position
                 if (
@@ -90,7 +107,7 @@ function drawGrid() {
                         push();
                             noStroke();
                             fill('#f33');
-                            rect(pos.x, pos.y, width/8, height/8);
+                            rect(pos.x, pos.y, width/gridSize, height/gridSize);
                         pop();
                     }
             }

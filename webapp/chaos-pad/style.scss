@@ -6,7 +6,7 @@ $background: #2a2a30;
 $color: #eee;
 $accent: #f33;
 
-$fonts: -apple-system, sans-serif;
+$fonts: 'Oxanium', -apple-system, sans-serif;
 
 $break: 640px;
 
@@ -29,6 +29,9 @@ body {
     box-sizing: border-box;
     * {
         box-sizing: border-box;
+        font-family: $fonts;
+        user-select: none;
+        -webkit-user-select: none;
     }
 
     margin: 0 auto;
@@ -44,21 +47,23 @@ body {
     @media (min-width: $break) {
         left: calc(50% - #{$break*0.5});
     }
-    touch-action: manipulation;
+    touch-action: none;
 }
 
 canvas {
     border: $accent solid 3px;
     border-radius: 1rem;
-    max-width: 100%;
+    //max-width: 100%;
     height: auto;
+    box-shadow: 0 -2px 4px 3px rgba(12,13,17,0.4), inset 0 11px 23px 0 rgba(57,57,57,0.26);
 }
 
-.buttons {
+#switch {
     display: flex;
     flex-flow: row nowrap;
     width: 100%;
     margin: 1rem 0;
+
 
     button {
         margin: 0 3px;
@@ -66,14 +71,14 @@ canvas {
         padding: 1rem;
         font-size: 1rem;
         //
-        background: #d88b4c;
-        background: radial-gradient(circle, #d88b4c 0%, #c5703f 100%);
+        background-image: radial-gradient(50% 200%, #6A7F99 50%, #4F637D 90%, #5E7187 117%);
+        border: 1px solid #78889B;
+        box-shadow: 0 -2px 4px 3px rgba(12,13,17,0.4), inset 0 11px 23px 0 rgba(57,57,57,0.26);
         color: $color;
         border-radius: 0.5rem;
-        border: #db7940 solid 2px;
 
         &:active {
-            background: #a76b3b;
+            opacity: 0.8;
         }
 
         &:first-child {
@@ -85,12 +90,29 @@ canvas {
     }
 
 }
+.active {
+    background-image: radial-gradient(50% 200%, #E99F65 50%, #A74F67 90%, #AE546D 117%) !important;
+    border: 1px solid #BF5C6A !important;
+}
 
 
 
 //Stijlen
 
 h1 {
-    font-size: 2rem;
-    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin: 1 0 1.5rem 0;
+    text-align: center;
+}
+
+label {
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    display: block;
+    border: solid $color 2px;
+    border-radius: 2px;
+    padding: 0.1rem 0 0 0;
 }

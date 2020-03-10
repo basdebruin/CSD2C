@@ -5,6 +5,7 @@
     <title>OSC test client</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- LIBRARIES / SCRIPTS -->
     <script src="../Library/socket_io.js"></script>
     <script src="../Library/p5.js"></script>
@@ -19,12 +20,11 @@
 </head>
 
 <body>
-    <h1>Chaos Pad Boi</h1>
-    <p>Effecten</p>
+    <h1>KAOSS PAD</h1>
 
-    <div class="buttons">
-        <button onclick="setFilter('LPF')">Low Pass Filter</button>
-        <button onclick="setFilter('BPF')">Band Pass Filter</button>
+    <div id="switch">
+        <button onclick="setFilter(event, 'LPF')" class="active">Low Pass Filter</button>
+        <button onclick="setFilter(event, 'BPF')">Band Pass Filter</button>
     </div>
     
 </body>
