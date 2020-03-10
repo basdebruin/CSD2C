@@ -1,0 +1,81 @@
+/*
+    STYLE SCSS voor CSD2C eindopracht
+*/
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-size: 18px;
+}
+
+body {
+  font-size: 1rem;
+  font-family: -apple-system, sans-serif;
+  background: #2a2a30;
+  color: #eee;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 640px;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  touch-action: manipulation;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  body {
+    left: calc(50% - 320px);
+  }
+}
+
+canvas {
+  border: #f33 solid 3px;
+  border-radius: 1rem;
+  max-width: 100%;
+  height: auto;
+}
+
+.buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.buttons button {
+  margin: 0 3px;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  background: #d88b4c;
+  background: radial-gradient(circle, #d88b4c 0%, #c5703f 100%);
+  color: #eee;
+  border-radius: 0.5rem;
+  border: #db7940 solid 2px;
+}
+
+.buttons button:active {
+  background: #a76b3b;
+}
+
+.buttons button:first-child {
+  margin-left: 0;
+}
+
+.buttons button:last-child {
+  margin-right: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0;
+}

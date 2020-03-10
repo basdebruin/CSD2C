@@ -3,6 +3,9 @@
 
 <head>
     <title>OSC test client</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <!-- LIBRARIES / SCRIPTS -->
     <script src="../Library/socket_io.js"></script>
     <script src="../Library/p5.js"></script>
     <script src="../Library/addons/p5.dom.js"></script>
@@ -17,6 +20,13 @@
 
 <body>
     <h1>Chaos Pad Boi</h1>
+    <p>Effecten</p>
+
+    <div class="buttons">
+        <button onclick="setFilter('LPF')">Low Pass Filter</button>
+        <button onclick="setFilter('BPF')">Band Pass Filter</button>
+    </div>
+    
 </body>
 
 </html>

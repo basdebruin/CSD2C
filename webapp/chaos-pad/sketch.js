@@ -1,8 +1,9 @@
-/* voorbeeld-sketch voor het gebruik van Open Sound Control in P5js - client
- * Deze sketch stuurt berichten naar het IP-adres 127.0.0.1 en poort 9000
- */
+/*
+    Sketch op basis van csdosc-master,
+    aangepast voor CSD2C eindopdracht
+*/
 
-//aanmaken van de benodigde variabelen.
+
 let client;
 let connect;
 let x, y;
@@ -46,6 +47,12 @@ function mouseMoved() {
 
     //stuur een bericht naar het adres /y met als waarde de y-positie van de muis.
     client.sendMessage("/y", y);
+}
+
+// send "/filter" message
+function setFilter(filt) {
+    client.sendMessage("/filter", filt);
+    console.log("Set filter to: " + filt);
 }
 
 
