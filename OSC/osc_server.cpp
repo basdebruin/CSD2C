@@ -62,7 +62,7 @@ localOSC osc;
 string serverport="7777";
 
   osc.init(serverport);
-  osc.set_callback("/filter","iii");
+  osc.set_callback("/effect","iii");
   osc.set_callback("/x","f");
   osc.set_callback("/y","f");
 

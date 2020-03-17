@@ -59,10 +59,10 @@ function mouseMoved() {
 
 
 // set filter switch function
-function setFilter(event, filt) {
+function setEffect(event, effect) {
     // send /filter message
-    client.sendMessage("/filter", filt);
-    console.log("Set filter to: " + filt);
+    client.sendMessage("/effect", effect);
+    console.log("Set effect to: " + effect);
     
     // set tab activeness
     let buttons = document.getElementById('switch').childNodes;
