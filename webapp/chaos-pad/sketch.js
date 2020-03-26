@@ -23,8 +23,8 @@ function setup() {
         client.startClient("127.0.0.1", 9000);
     });
 
-    x = 100;
-    y = 100;
+    x = 0;
+    y = 0;
 }
 
 function draw() {
@@ -84,6 +84,7 @@ function drawGrid() {
                 y: j * (height/gridSize)
             }
 
+            // draw grid lines
             push();
                 stroke('#445');
                 strokeWeight(2);
