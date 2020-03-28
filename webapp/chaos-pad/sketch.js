@@ -35,7 +35,7 @@ function draw() {
     } else {
         touching = false;
     }
-    //ellipse(x * width, y * height, 10);
+    //
     drawGrid();
 }
 
@@ -46,7 +46,7 @@ function mouseMoved() {
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
 
         x = map(mouseX, 0, width, 0, 1);
-        y = map(mouseY, 0, height, 0, 1);
+        y = map(mouseY, 0, height, 1, 0); // reverse y so 1 is up and 0 is down
 
         //stuur een bericht naar het adres /x met als waarde de x-positie van de muis
         client.sendMessage("/x", x);
