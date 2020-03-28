@@ -1,11 +1,33 @@
 #include <iostream>
 #include <thread>
 #include <cstdlib> //for rand()
-#include "jack_module.h"
+#include "Jack/jack_module.h"
 #include "math.h"
-#include "lpf.h"
+#include "filter/lpf.h"
+#include "OSC/osc.h"
 
 #define PI_2 6.28318530717959
+
+float x;
+float y;
+
+class localOSC : public OSC
+{
+  int realcallback(const char *path,const char *types,lo_arg **argv,int argc)
+  {
+  string msgpath=path;
+// recieves the message with path and prints it
+    cout << "path: " << msgpath << endl;
+    if(!msgpath.compare("/x")){
+      x = argv[0]->f;
+    }
+    if(!msgpath.compare("/y")){
+        y = argv[0]->f;
+    }
+
+    return 0;
+  } // realcallback()
+};
 
 
 int main(int argc, char ** argv) {
@@ -15,6 +37,15 @@ int main(int argc, char ** argv) {
 	// init the jack, use program name as JACK client name
 	jack.init(argv[0]);
 	double samplerate = jack.getSamplerate();
+	localOSC osc;
+	string serverport="7777";
+
+  osc.init(serverport);
+ 	osc.set_callback("/x","f");
+  osc.set_callback("/y","f");
+
+	osc.start();
+	cout << "Listening on port " << serverport << endl;
 
 
 	float c = 800;
@@ -28,13 +59,14 @@ int main(int argc, char ** argv) {
 		jack_default_audio_sample_t * outBuf, jack_nframes_t nframes) {
 
 			for (unsigned int i = 0; i < nframes; i++) {
-
+        float oscCut;
 				// noise
 				// float r = (float) (std::rand() % 1000) / 500.0 - 1.0;
 				// lpf naar outbuf
 				float sample = lpf.update(inBuf[i]);
-				outBuf[i] = sample;
-
+				outBuf[i] = sample * y;
+        oscCut = x *20000;
+        lpf.setCutoff(oscCut);
 			}
 
 			return 0;
@@ -51,27 +83,6 @@ int main(int argc, char ** argv) {
 			case 'q':
 				running = false;
 				jack.end();
-				break;
-			case 'a':
-				lpf.setCutoff(800);
-				break;
-			case 's':
-				lpf.setCutoff(1200);
-				break;
-			case 'd':
-				lpf.setCutoff(2000);
-				break;
-			case 'f':
-				lpf.setCutoff(3000);
-				break;
-			case 'g':
-				lpf.setCutoff(5000);
-				break;
-			case 'h':
-				lpf.setCutoff(10000);
-				break;
-			case 'j':
-				lpf.setCutoff(20000);
 				break;
 		}
 	}

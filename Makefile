@@ -4,10 +4,11 @@ LDFLAGS= -ljack
 
 all: example
 
-example : jack_module.o lpf.o main.o
-	$(CC) -o $@ $(CFLAGS) jack_module.o lpf.o main.o $(LDFLAGS)
+example : Jack/jack_module.o filter/lpf.o osc.o main.o
+	$(CC) -o $@ $(CFLAGS) jack_module.o lpf.o osc.o main.o $(LDFLAGS) -llo
+	
 
-.cpp.o:
+.cpp.o:folders
 	$(CC) -c $< $(CFLAGS)
 
 clean:

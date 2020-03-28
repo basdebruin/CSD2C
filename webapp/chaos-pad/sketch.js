@@ -20,7 +20,7 @@ function setup() {
         client = new Client();
 
         //start de client en laat deze berichten sturen naar het ip-adres 127.0.0.1 en poort 9000
-        client.startClient("127.0.0.1", 9000);
+        client.startClient("localhost", 7777);
     });
 
     x = 100;
@@ -50,6 +50,7 @@ function mouseMoved() {
 
         //stuur een bericht naar het adres /x met als waarde de x-positie van de muis
         client.sendMessage("/x", x);
+	console.log(x);
 
         //stuur een bericht naar het adres /y met als waarde de y-positie van de muis.
         client.sendMessage("/y", y);
