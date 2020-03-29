@@ -33,6 +33,10 @@ localOSC osc;
 string serverport="7777";
 
   osc.init(serverport);
+<<<<<< HEAD
+=======
+  osc.set_callback("/effect","iii");
+>>>>>>> e5f99208afbf2d60d2a034b751394378866f7318
   osc.set_callback("/x","f");
   osc.set_callback("/y","f");
 

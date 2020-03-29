@@ -23,8 +23,8 @@ function setup() {
         client.startClient("localhost", 7777);
     });
 
-    x = 100;
-    y = 100;
+    x = 0;
+    y = 0;
 }
 
 function draw() {
@@ -50,7 +50,6 @@ function mouseMoved() {
 
         //stuur een bericht naar het adres /x met als waarde de x-positie van de muis
         client.sendMessage("/x", x);
-	console.log(x);
 
         //stuur een bericht naar het adres /y met als waarde de y-positie van de muis.
         client.sendMessage("/y", y);
@@ -60,11 +59,11 @@ function mouseMoved() {
 
 
 // set filter switch function
-function setFilter(event, filt) {
+function setEffect(event, effect) {
     // send /filter message
-    client.sendMessage("/filter", filt);
-    console.log("Set filter to: " + filt);
-    
+    client.sendMessage("/effect", effect);
+    console.log("Set effect to: " + effect);
+
     // set tab activeness
     let buttons = document.getElementById('switch').childNodes;
     for (let b of buttons) {
@@ -85,6 +84,7 @@ function drawGrid() {
                 y: j * (height/gridSize)
             }
 
+            // draw grid lines
             push();
                 stroke('#445');
                 strokeWeight(2);
@@ -100,7 +100,7 @@ function drawGrid() {
                 }
                 // draw red squares around mouse/touch position
                 if (
-                    (gridpos.x-1 == i && gridpos.y == j) || 
+                    (gridpos.x-1 == i && gridpos.y == j) ||
                     (gridpos.x+1 == i && gridpos.y == j) ||
                     (gridpos.y-1 == j && gridpos.x == i) ||
                     (gridpos.y+1 == j && gridpos.x == i)

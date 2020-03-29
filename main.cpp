@@ -5,19 +5,26 @@
 #include "math.h"
 #include "filter/lpf.h"
 #include "OSC/osc.h"
+#include "tremelo/Osc.h"
+#include "tremelo/sine.h"
+#include "bandpass/Iir.h"
 
 #define PI_2 6.28318530717959
 
 float x;
 float y;
+float fx;
+int effect = 1;
 
 class localOSC : public OSC
 {
   int realcallback(const char *path,const char *types,lo_arg **argv,int argc)
   {
   string msgpath=path;
-// recieves the message with path and prints it
-    cout << "path: " << msgpath << endl;
+  if(!msgpath.compare("/effect")){
+    fx = argv[0]->f;
+    std::cout << fx << '\n';
+  }
     if(!msgpath.compare("/x")){
       x = argv[0]->f;
     }
@@ -39,11 +46,11 @@ int main(int argc, char ** argv) {
 	double samplerate = jack.getSamplerate();
 	localOSC osc;
 	string serverport="7777";
-
+  std::cout << fx << '\n';
   osc.init(serverport);
- 	osc.set_callback("/x","f");
-  osc.set_callback("/y","f");
-
+    osc.set_callback("/effect","i");
+    osc.set_callback("/x","f");
+    osc.set_callback("/y","f");
 	osc.start();
 	cout << "Listening on port " << serverport << endl;
 
@@ -52,6 +59,12 @@ int main(int argc, char ** argv) {
 
 	// cutoff, res, sr
 	LPF lpf(c, 0.0, samplerate);
+  Sine sine(20, samplerate);
+  sine.setAmp(1.0);
+
+  const int order = 8; // 4th order (=2 biquads)
+  Iir::Butterworth::BandPass<order> f;
+  f.setup (samplerate, 1000, 1200);
 
 
 	//assign a function to the JackModule::onProces
@@ -63,10 +76,24 @@ int main(int argc, char ** argv) {
 				// noise
 				// float r = (float) (std::rand() % 1000) / 500.0 - 1.0;
 				// lpf naar outbuf
-				float sample = lpf.update(inBuf[i]);
-				outBuf[i] = sample * y;
-        oscCut = x *20000;
-        lpf.setCutoff(oscCut);
+        if(effect == 1){
+				   float sample = lpf.update(inBuf[i]);
+				   outBuf[i] = sample * y;
+           oscCut = x *20000;
+           lpf.setCutoff(oscCut);
+        }
+        if(effect == 2){
+          float sample = ((sine.getSample()*0.5)+0.5)* inBuf[i];
+          sine.tick();
+          outBuf[i] = sample;
+          sine.setFrequency(x*50);
+          std::cout << sample << '\n';
+        }
+        if(effect == 3){
+          float sample = f.filter(inBuf[i]);
+          outBuf[i] = sample;
+          f.setup (samplerate, x*15000, x*15000+200);
+        }
 			}
 
 			return 0;
@@ -75,8 +102,6 @@ int main(int argc, char ** argv) {
 	jack.autoConnect();
 
 	//keep the program running and listen for user input, q = quit
-	std::cout << "\n\nPress 'q' when you want to quit the program.\n";
-	std::cout << "Use A-J to change cutoff freq" << std::endl;
 	bool running = true;
 	while (running) {
 		switch (std::cin.get()) {
@@ -84,6 +109,15 @@ int main(int argc, char ** argv) {
 				running = false;
 				jack.end();
 				break;
+        case '2':
+  				effect = 2;
+          break;
+        case '1':
+          effect = 1;
+          break;
+          case '3':
+            effect = 3;
+            break;
 		}
 	}
 

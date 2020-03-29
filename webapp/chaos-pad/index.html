@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>OSC test client</title>
+    <title>KAOSS PAD</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="style.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;700&display=swap" rel="stylesheet">
@@ -22,10 +22,14 @@
 <body>
     <h1>KAOSS PAD</h1>
 
+    <!-- BUTTONS -->
     <div id="switch">
-        <button onclick="setFilter(event, 'LPF')" class="active">Low Pass Filter</button>
-        <button onclick="setFilter(event, 'BPF')">Band Pass Filter</button>
+        <button onclick="setEffect(event, 'LPF')" class="active">Low Pass Filter</button>
+        <button onclick="setEffect(event, 'BPF')">Band Pass Filter</button>
+        <button onclick="setEffect(event, 'TRE')">Tremelo</button>
     </div>
+
+    <!-- Canvas will be created here -->
     
 </body>
 
