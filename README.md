@@ -11,10 +11,10 @@ Voor de UI van de webapp is een combinatie van p5.js en html elementen gebruikt.
 
 ## Systeemdiagram
 
-![](docs/SysteemDiagram.svg)
+![](docs/SysteemDiagram.jpg)
 
 ## Audio Flow Diagram
 
-![](docs/AudioFlowDiagram.svg)
+![](docs/AudioFlowDiagram.jpg)
 
 ## Tijdsbesteding
