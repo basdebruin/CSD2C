@@ -58,9 +58,9 @@ function mouseMoved() {
 }
 
 
-// set filter switch function
+// set effect switch function
 function setEffect(event, effect) {
-    // send /filter message
+    // send /effect message
     client.sendMessage("/effect", effect);
     console.log("Set effect to: " + effect);
     
