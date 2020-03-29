@@ -46,13 +46,13 @@ function mouseMoved() {
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
 
         x = map(mouseX, 0, width, 0, 1);
-        y = map(mouseY, 0, height, 1, 0); // reverse y so 1 is up and 0 is down
+        y = map(mouseY, 0, height, 0, 1); 
 
         //stuur een bericht naar het adres /x met als waarde de x-positie van de muis
         client.sendMessage("/x", x);
 
         //stuur een bericht naar het adres /y met als waarde de y-positie van de muis.
-        client.sendMessage("/y", y);
+        client.sendMessage("/y", 1-y); // reverse y so 1 is up and 0 is down
 
     }
 }

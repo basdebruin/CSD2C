@@ -23,7 +23,8 @@ class localOSC : public OSC
   string msgpath=path;
   if(!msgpath.compare("/effect")){
     fx = argv[0]->f;
-    std::cout << fx << '\n';
+    effect = argv[0]->i;
+    std::cout << "effect set to: " << effect << '\n';
   }
     if(!msgpath.compare("/x")){
       x = argv[0]->f;
@@ -73,23 +74,21 @@ int main(int argc, char ** argv) {
 
 			for (unsigned int i = 0; i < nframes; i++) {
         float oscCut;
-				// noise
-				// float r = (float) (std::rand() % 1000) / 500.0 - 1.0;
-				// lpf naar outbuf
+        //
         if(effect == 1){
 				   float sample = lpf.update(inBuf[i]);
 				   outBuf[i] = sample * y;
            oscCut = x *20000;
            lpf.setCutoff(oscCut);
         }
-        if(effect == 2){
+        if(effect == 3){
           float sample = ((sine.getSample()*0.5)+0.5)* inBuf[i];
           sine.tick();
           outBuf[i] = sample;
           sine.setFrequency(x*50);
-          std::cout << sample << '\n';
+          //std::cout << sample << '\n';
         }
-        if(effect == 3){
+        if(effect == 2){
           float sample = f.filter(inBuf[i]);
           outBuf[i] = sample;
           f.setup (samplerate, x*15000, x*15000+200);
