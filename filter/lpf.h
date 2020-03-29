@@ -1,17 +1,33 @@
 #pragma once
+#include "math.h"
+#include <iostream>
 
 class LPF {
 public:
-    LPF(float cutoff, float samplerate);
+    LPF(float cutoff, float resonance, float samplerate);
     ~LPF();
 
+
+    // update
     float update(float input);
-    void setCutoff(float cutoff);
+
+    inline void setCutoff(float cutoff) {
+        this->cutoff = cutoff;
+        c = pow(0.5, (128 - (cutoff / 24000 * 128)) / 16.0);
+        std::cout << "LPF :: Cutoff set to: " << cutoff << std::endl;
+    };
+    inline void setRes(float res) {
+        this->resonance = res;
+        r = pow(0.5, ((resonance * 128) + 24) / 16.0);
+    };
 
 
 private:
     float cutoff;
-    float deltaTime;
+    float resonance;
+    float c, r; //converted formula values
     float output;
-    float ePow;
+
+    float v0, v1 = 0;
+
 };

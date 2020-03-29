@@ -17,29 +17,34 @@ int main(int argc, char ** argv) {
 	double samplerate = jack.getSamplerate();
 
 
-	LPF lpf(2000, samplerate);
+	float c = 800;
+
+	// cutoff, res, sr
+	LPF lpf(c, 0.0, samplerate);
 
 
 	//assign a function to the JackModule::onProces
 	jack.onProcess = [&](jack_default_audio_sample_t * inBuf,
 		jack_default_audio_sample_t * outBuf, jack_nframes_t nframes) {
 
-		for (unsigned int i = 0; i < nframes; i++) {
+			for (unsigned int i = 0; i < nframes; i++) {
 
-			// noise
-			float r = (std::rand() % 1000) / 500 - 1;
-			// lpf naar outbuf
-			outBuf[i] = lpf.update(r);
+				// noise
+				// float r = (float) (std::rand() % 1000) / 500.0 - 1.0;
+				// lpf naar outbuf
+				float sample = lpf.update(inBuf[i]);
+				outBuf[i] = sample;
 
-		}
+			}
 
-		return 0;
+			return 0;
 	};
 
 	jack.autoConnect();
 
 	//keep the program running and listen for user input, q = quit
 	std::cout << "\n\nPress 'q' when you want to quit the program.\n";
+	std::cout << "Use A-J to change cutoff freq" << std::endl;
 	bool running = true;
 	while (running) {
 		switch (std::cin.get()) {
@@ -47,8 +52,27 @@ int main(int argc, char ** argv) {
 				running = false;
 				jack.end();
 				break;
+			case 'a':
+				lpf.setCutoff(800);
+				break;
 			case 's':
-				lpf.setCutoff(200);
+				lpf.setCutoff(1200);
+				break;
+			case 'd':
+				lpf.setCutoff(2000);
+				break;
+			case 'f':
+				lpf.setCutoff(3000);
+				break;
+			case 'g':
+				lpf.setCutoff(5000);
+				break;
+			case 'h':
+				lpf.setCutoff(10000);
+				break;
+			case 'j':
+				lpf.setCutoff(20000);
+				break;
 		}
 	}
 
