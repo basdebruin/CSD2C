@@ -16,6 +16,10 @@ Voor de UI van de webapp is een combinatie van p5.js en html elementen gebruikt.
 ## Audio Flow Diagram
 
 ![](docs/AudioFlowDiagram.jpg)
+#### mapping:
+* Low Pass Filter - x: cutoff y: volume
+* Band Pass Filter - x: cutoff y: volume
+* Tremolo - x: speed y: volume
 
 ## Reflectie
 
