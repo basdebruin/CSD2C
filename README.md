@@ -41,12 +41,12 @@ In het begin van dit project was ik heel erg excited om dit project te gaan doen
 * 5 uur - Demovideo + editing
 
 #### Ruben
- 2 -concept uitwerken
- 10 - bandpass filter research
- 2 - bandpass filter aanpassen
- 4 - tremelo
- 6 - OSC aansluiten
- 2 - node js
- 4 - samenvoegen OSC en audio
- 15 - research audio effecten (boek lezen)
+* 2 -concept uitwerken
+* 10 - bandpass filter research
+* 2 - bandpass filter aanpassen
+* 4 - tremelo
+* 6 - OSC aansluiten
+* 2 - node js
+* 4 - samenvoegen OSC en audio
+* 15 - research audio effecten (boek lezen)
 
