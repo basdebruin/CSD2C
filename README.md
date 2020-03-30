@@ -17,4 +17,20 @@ Voor de UI van de webapp is een combinatie van p5.js en html elementen gebruikt.
 
 ![](docs/AudioFlowDiagram.jpg)
 
+## Reflectie
+
+#### Bas
+Naar mijn mening ging dit project redelijk goed. We zijn tegen wat problemen gelopen maar die hebben we ook opgelost.
+Mijn samenwerking met Ruben ging goed, we hebben een duidelijke taakverdeling gemaakt en het werkt eerlijk verdeeld, ik had met meer op het low-pass filter, webapp en documentatie gericht en Ruben op de osc en audio processing code.
+
+Als enige kritiek aan dit project heb ik dat ik een beetje teleurgesteld was is de hoeveelheid vrijheid die we kregen. Het voelde nog erg als een school opdracht waar je een idee moet verzinnen om de eisen van de opdracht heen. Ons project was dan ook een beetje een idee voor een app wat we om hebben gevormt naar de eisen. Desalnietemin was het een leerzame ervaring en ben ik tevreden met het eindresultaat.
+
+#### Ruben
+
 ## Tijdsbesteding
+
+#### Bas
+* 10 uur - Webapp code
+* 5 uur - Low-pass filter
+* 3 uur - Documentatie
+* 5 uur - Demovideo + editing
