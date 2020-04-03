@@ -14,7 +14,6 @@ public:
     inline void setCutoff(float cutoff) {
         this->cutoff = cutoff;
         c = pow(0.5, (128 - (cutoff / 24000 * 128)) / 16.0);
-        std::cout << "LPF :: Cutoff set to: " << cutoff << std::endl;
     };
     inline void setRes(float res) {
         this->resonance = res;

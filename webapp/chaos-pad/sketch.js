@@ -20,7 +20,7 @@ function setup() {
         client = new Client();
 
         //start de client en laat deze berichten sturen naar het ip-adres 127.0.0.1 en poort 9000
-        client.startClient("127.0.0.1", 9000);
+        client.startClient("localhost", 7777);
     });
 
     x = 0;
@@ -46,13 +46,13 @@ function mouseMoved() {
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
 
         x = map(mouseX, 0, width, 0, 1);
-        y = map(mouseY, 0, height, 1, 0); // reverse y so 1 is up and 0 is down
+        y = map(mouseY, 0, height, 0, 1); 
 
         //stuur een bericht naar het adres /x met als waarde de x-positie van de muis
         client.sendMessage("/x", x);
 
         //stuur een bericht naar het adres /y met als waarde de y-positie van de muis.
-        client.sendMessage("/y", y);
+        client.sendMessage("/y", 1-y); // reverse y so 1 is up and 0 is down
 
     }
 }
@@ -63,7 +63,7 @@ function setEffect(event, effect) {
     // send /effect message
     client.sendMessage("/effect", effect);
     console.log("Set effect to: " + effect);
-    
+
     // set tab activeness
     let buttons = document.getElementById('switch').childNodes;
     for (let b of buttons) {
@@ -100,7 +100,7 @@ function drawGrid() {
                 }
                 // draw red squares around mouse/touch position
                 if (
-                    (gridpos.x-1 == i && gridpos.y == j) || 
+                    (gridpos.x-1 == i && gridpos.y == j) ||
                     (gridpos.x+1 == i && gridpos.y == j) ||
                     (gridpos.y-1 == j && gridpos.x == i) ||
                     (gridpos.y+1 == j && gridpos.x == i)

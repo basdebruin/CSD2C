@@ -1,33 +1,4 @@
-/**********************************************************************
-*          Copyright (c) 2013, Hogeschool voor de Kunsten Utrecht
-*                      Hilversum, the Netherlands
-*                          All rights reserved
-***********************************************************************
-*  This program is free software: you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation, either version 3 of the License, or
-*  (at your option) any later version.
-*
-*  This program is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  You should have received a copy of the GNU General Public License
-*  along with this program.
-*  If not, see <http://www.gnu.org/licenses/>.
-***********************************************************************
-*
-*  File name     : osc_server.cpp
-*  System name   : osc++ : Open Sound Control
-*
-*  Description   : Demo program using C++ wrapper for liblo
-*
-*
-*  Author        : Marc_G
-*  E-mail        : marcg@dinkum.nl
-*
-**********************************************************************/
+
 
 #include "osc.h"
 
@@ -38,7 +9,7 @@ class localOSC : public OSC
   int realcallback(const char *path,const char *types,lo_arg **argv,int argc)
   {
   string msgpath=path;
-
+// recieves the message with path and prints it
     cout << "path: " << msgpath << endl;
     if(!msgpath.compare("/x")){
       float x = argv[0]->f;
@@ -62,7 +33,10 @@ localOSC osc;
 string serverport="7777";
 
   osc.init(serverport);
+<<<<<< HEAD
+=======
   osc.set_callback("/effect","iii");
+>>>>>>> e5f99208afbf2d60d2a034b751394378866f7318
   osc.set_callback("/x","f");
   osc.set_callback("/y","f");
 
